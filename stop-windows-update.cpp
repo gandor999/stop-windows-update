@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -113,30 +114,18 @@ int main()
 
     MapStorage mapStorage = MapStorage();
 
+    // store key value pairs
     for (string linePhrase : linePhrases)
     {
-        cout << getParameter(linePhrase);
-        cout << "\n";
-        cout << "\n";
-        cout << getArgument(linePhrase);
-
-        cout << "\n";
-        cout << "\n";
+        mapStorage.insertKeyValuePair(getParameter(linePhrase), getArgument(linePhrase));
     }
 
-    // cout << isValidParameter("greeting");
+    string message = "echo " + mapStorage.getValueOfKey("softwareDistributionDownloadPath");
+    const char *echoMessage = message.c_str();
 
-    // mapStorage.insertKeyValuePair("greeting", "hello-world");
-
-    // cout << mapStorage.getValueOfKey("greeting");
-
-    // cout << "\n";
-    // cout << "\n";
-
-    // cout << getArgument("greeting: hello-world");
-
-    // cout << "\n";
-    // cout << "\n";
-
-    // cout << getHashMap()["greeting"];
+    // commands to stop windows update and delete Download folder in SoftwareDistribution
+    system("net stop wuauserv");
+    system("sc config wuauserv start= disabled");
+    system(echoMessage);
+    system("pause");
 }
