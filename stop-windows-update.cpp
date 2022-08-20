@@ -110,7 +110,7 @@ public:
 int main()
 {
 
-    vector<string> linePhrases = getLinePhrases("hello.yaml");
+    vector<string> linePhrases = getLinePhrases("config.yaml");
 
     MapStorage mapStorage = MapStorage();
 
