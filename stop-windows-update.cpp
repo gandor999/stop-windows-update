@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <array>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,6 +22,20 @@ vector<string> getLinePhrases(string fileName)
     return linePhrases;
 }
 
+bool isValidParameter(string word)
+{
+    vector<string> validParameters = {"softwareDistributionDownloadPath", "validParameter"};
+
+    if (find(validParameters.begin(), validParameters.end(), word) != validParameters.end())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 string getParameter(string linephrase)
 {
 
@@ -36,7 +51,23 @@ string getParameter(string linephrase)
         }
     }
 
-    return token;
+    try
+    {
+        if (isValidParameter(token) == false)
+        {
+            throw(token);
+        }
+        else
+        {
+            return token;
+        }
+    }
+    catch (string token)
+    {
+        string errMessage = "error: invalid parameter => " + token;
+        cerr << errMessage << '\n';
+        throw(token);
+    }
 }
 
 string getArgument(string linePhrase)
@@ -52,32 +83,6 @@ string getArgument(string linePhrase)
     }
 
     return token;
-}
-
-bool isValidParameter(string word)
-{
-    string validParameters[] = {"downloadPath"};
-    bool isValid = false;
-
-    for (int i = 0; i < sizeof(validParameters); ++i)
-    {
-        if (word == validParameters[i])
-        {
-            isValid = true;
-            break;
-        }
-    }
-
-    return isValid;
-}
-
-map<string, string> getHashMap()
-{
-    map<string, string> hashMap;
-
-    hashMap.insert({"greeting", "hello-world"});
-
-    return hashMap;
 }
 
 class MapStorage
@@ -108,11 +113,24 @@ int main()
 
     MapStorage mapStorage = MapStorage();
 
-    mapStorage.insertKeyValuePair("greeting", "hello-world");
+    for (string linePhrase : linePhrases)
+    {
+        cout << getParameter(linePhrase);
+        cout << "\n";
+        cout << "\n";
+        cout << getArgument(linePhrase);
 
-    cout << mapStorage.getValueOfKey("greeting");
+        cout << "\n";
+        cout << "\n";
+    }
 
-        // cout << "\n";
+    // cout << isValidParameter("greeting");
+
+    // mapStorage.insertKeyValuePair("greeting", "hello-world");
+
+    // cout << mapStorage.getValueOfKey("greeting");
+
+    // cout << "\n";
     // cout << "\n";
 
     // cout << getArgument("greeting: hello-world");
