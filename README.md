@@ -1,4 +1,4 @@
-#### Auto disable windows update (Windows)
+#### Auto disable windows update
 
 This is an .exe file that reads the config.yaml file (where the content for this is the path to the softwaredistribution download dir that you can set) and uses the input as one of the commands to be executed with system() to delete the download dir.
 
