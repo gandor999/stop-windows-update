@@ -120,12 +120,23 @@ int main()
         mapStorage.insertKeyValuePair(getParameter(linePhrase), getArgument(linePhrase));
     }
 
-    string message = "echo " + mapStorage.getValueOfKey("softwareDistributionDownloadPath");
-    const char *echoMessage = message.c_str();
+    string deleteDownloadDir = "rmdir /s " + mapStorage.getValueOfKey("softwareDistributionDownloadPath");
+    const char *charDeleteDownloadDir = deleteDownloadDir.c_str();
 
     // commands to stop windows update and delete Download folder in SoftwareDistribution
     system("net stop wuauserv");
     system("sc config wuauserv start= disabled");
-    system(echoMessage);
+
+    bool isDeleted = system(charDeleteDownloadDir);
+
+    if (isDeleted)
+    {
+        cout << "File deleted. \n";
+    }
+    else
+    {
+        cout << "Unable to delete file. \n";
+    }
+
     system("pause");
 }
