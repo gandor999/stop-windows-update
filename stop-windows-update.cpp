@@ -131,11 +131,11 @@ int main()
 
     if (isDeleted)
     {
-        cout << "File deleted. \n";
+        cout << "Unable to delete file or file has already been deleted\n";
     }
     else
     {
-        cout << "Unable to delete file. \n";
+        cout << "File deleted\n";
     }
 
     system("pause");
